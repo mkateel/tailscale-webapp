@@ -1,30 +1,29 @@
-# Tailscale Web App (Dockerized)
+# Tailscale + Flask Web App Docker Image
 
-A simple Flask web application bundled with Tailscale VPN. This Docker image runs both a Flask web server and Tailscale to connect securely to your Tailnet.
+This repository contains a Dockerized Flask web application bundled with the Tailscale VPN client. It uses `supervisord` to run both the Tailscale daemon and the Flask server simultaneously inside one container.
 
 ---
 
 ## Features
 
-- Runs a lightweight Flask app on port 5000.
-- Includes Tailscale VPN client for private network connectivity.
-- Easy to build and run with Docker.
-- Requires Tailscale auth key at runtime to authenticate your node.
+- Runs a simple Flask web app on port 5000.
+- Runs the Tailscale daemon (`tailscaled`) and connects the container to your Tailnet.
+- Uses `supervisord` for robust process management.
+- Lightweight and easy to deploy with Docker.
 
 ---
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
-
-- Docker installed on your machine or server.
+- Docker installed on your host.
 - A [Tailscale Auth Key](https://tailscale.com/kb/1085/auth-keys/) for unattended authentication.
+- Host system must support TUN device (`/dev/net/tun`).
 
 ---
 
-## Use the prebuilt Docker image
+## Quick Start: Use the prebuilt Docker image
 
-You can pull and run the prebuilt image from Docker Hub:
+Pull the image from Docker Hub and run it:
 
 ```bash
 docker run --rm \
@@ -32,4 +31,4 @@ docker run --rm \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun \
   -p 5000:5000 \
-  hungrymack/tailscale-webapp
+  hungrymack/tailscale-webapp:latest
