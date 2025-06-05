@@ -22,9 +22,14 @@ A simple Flask web application bundled with Tailscale VPN. This Docker image run
 
 ---
 
-### Build the Docker Image
+## Use the prebuilt Docker image
 
-Clone or download this repo, then run:
+You can pull and run the prebuilt image from Docker Hub:
 
 ```bash
-docker build -t tailscale-webapp .
+docker run --rm \
+  -e TAILSCALE_AUTH_KEY=<your-auth-key> \
+  --cap-add=NET_ADMIN \
+  --device /dev/net/tun \
+  -p 5000:5000 \
+  hungrymack/tailscale-webapp
